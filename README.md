@@ -2,42 +2,65 @@
 
 **Linear Octree Point Cloud Decomposition and Reconstruction System**
 
-## 项目简介
+## 项目概述
 
-本项目基于 Python 开发，实现三维点云的读取、预处理、线性八叉树分解、路径编码、点云重构、精度评价和三维可视化等功能。
+程序以三维点云 XYZ 坐标为输入，根据设定的八叉树深度对点云空间进行体素划分，并将占用体素转换为八叉树路径。
+在完整路径的基础上，将具有相同前缀的末级节点进行合并，使用“路径前缀 + 8 位末级占用状态”记录空间占用信息。随后根据编码结果恢复完整路径，并利用占用体素中心生成重构点云。
+系统支持不同八叉树深度下的批量处理，并使用 Chamfer Distance（CD）和 Hausdorff Distance（HD）评价重构结果。
 
-系统通过八叉树对三维空间进行层次划分，并将有效空间节点转换为路径编码，实现点云空间结构的紧凑表达；随后根据路径编码和体素信息完成点云重构，并使用 Chamfer Distance（CD）和 Hausdorff Distance（HD）对重构结果进行评价。
+## 功能
 
-项目采用 PySide6 构建图形用户界面，并结合 Open3D 实现原始点云与重构点云的三维可视化。
-
-## 主要功能
-
-- 点云文件读取与数据预处理
-- 三维空间归一化与体素划分
-- 线性八叉树构建
-- 八叉树路径编码与解析
+- TXT 点云数据读取
+- 点云归一化与体素划分
+- 线性八叉树路径编码
+- 路径前缀与末级占用状态表示
 - 点云重构
+- 多八叉树深度批量处理
 - Chamfer Distance（CD）计算
 - Hausdorff Distance（HD）计算
-- 原始点云与重构点云三维可视化
-- 分解与重构结果导出
-- PySide6 图形用户界面
-- 系统运行日志记录
+- 原始点云与重构点云可视化
+- 处理结果导出
 
-## 技术栈
+## 环境
 
-- Python
+- Python 3.12
 - NumPy
 - SciPy
 - Open3D
 - PySide6
-- Visual Studio Code
 
-## 项目结构
+## 运行界面
 
-- `core`：八叉树构建、路径编码、重构和评价指标
-- `gui`：PySide6 图形界面
-- `io_utils`：点云读取与结果保存
-- `models`：数据结构
-- `visualization`：Open3D 可视化
-- `utils`：日志等通用功能
+<p align="center">
+  <img src="docs/images/main_window.png" width="700" alt="Main Window">
+</p>
+
+## 点云可视化
+
+### 原始点云
+
+<p align="center">
+  <img src="docs/images/original_point_cloud.png" width="700" alt="Original Point Cloud">
+</p>
+
+### 重构点云
+
+<p align="center">
+  <img src="docs/images/reconstructed_point_cloud.png" width="700" alt="Reconstructed Point Cloud">
+</p>
+
+### 原始点云与重构点云对比
+
+<p align="center">
+  <img src="docs/images/comparison.png" width="700" alt="Point Cloud Comparison">
+</p>
+
+## 使用文档
+
+完整的软件安装、界面功能、点云加载、参数设置、分解与重构、三维可视化、结果导出以及常见问题处理，请参阅：
+
+**[用户操作手册](docs/user_manual.pdf)**
+
+## Author
+
+Fan Chuanhua
